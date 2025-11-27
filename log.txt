@@ -1,8 +1,0 @@
-CAR101 entered
-CAR635 entered
-CAR406 entered
-CAR635 exited
-CAR101 exited
-ABC123 entered
-XYZ999 entered
-XYZ999 exited
