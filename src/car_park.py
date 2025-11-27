@@ -5,7 +5,7 @@ from sensor import Sensor
 class CarPark:
     """Represents a simple car park."""
 
-    def __init__(self, location, capacity, plates=None, displays=None):
+    def __init__(self, location, capacity, plates=None, displays=None, sensors=None):
         # basic info
         self.location = location
         self.capacity = capacity
@@ -15,6 +15,9 @@ class CarPark:
 
         # connected display boards/screen
         self.displays = displays if displays is not None else []
+
+        # sensors that belong to this car park
+        self.sensors = sensors if sensors is not None else []
 
     @property
     def available_bays(self):
@@ -30,7 +33,7 @@ class CarPark:
         if isinstance(component, Display):
             self.displays.append(component)
         else:
-            pass
+            self.sensors.append(component)
 
     def add_car(self, plate):
         self.plates.append(plate)

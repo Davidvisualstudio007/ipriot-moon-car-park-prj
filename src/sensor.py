@@ -46,6 +46,12 @@ class ExitSensor(Sensor):
     def __init__(self, sensor_id, is_active, car_park):
         super().__init__(sensor_id, is_active, car_park)
 
+    def _scan_plate(self):
+        """Try to pick a plate that is already inside the car park."""
+        if self.car_park.plates:
+            return random.choice(self.car_park.plates)
+        return super()._scan_plate()
+
     def update_car_park(self, plate):
         """Tell the car park that a car has left."""
         self.car_park.remove_car(plate)
