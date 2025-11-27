@@ -1,6 +1,6 @@
-from car_park import CarPark
-from display import Display
-from sensor import EntrySensor, ExitSensor
+from src.car_park import CarPark
+from src.display import Display
+from src.sensor import EntrySensor, ExitSensor
 
 
 def main():
