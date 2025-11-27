@@ -1,19 +1,31 @@
-class Sensor:
+from abc import ABC, abstractmethod
+
+
+class Sensor(ABC):
     """Base class for sensors."""
 
-    def __init__(self):
+    def __init__(self, sensor_id, is_active, car_park):
+        self.sensor_id = sensor_id
+
+        self.is_active = is_active
+
+        self.car_park = car_park
+
+    @abstractmethod
+    def update_car_park(self, plate):
+        """Update the car park when a vehicle is detected."""
         pass
 
 
 class EntrySensor(Sensor):
-    """Detects cars entering."""
+    """Detects cars entering the car park."""
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, sensor_id, is_active, car_park):
+        super().__init__(sensor_id, is_active, car_park)
 
 
 class ExitSensor(Sensor):
-    """Detects cars exiting."""
+    """Detects cars leaving the car park."""
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, sensor_id, is_active, car_park):
+        super().__init__(sensor_id, is_active, car_park)
