@@ -33,17 +33,17 @@ class CarPark:
             pass
 
     def add_car(self, plate):
-        """Record a car entering the car park."""
         self.plates.append(plate)
         self.update_displays()
+        self._log(plate, "entered")
 
     def remove_car(self, plate):
-        """Record a car leaving the car park."""
         if plate in self.plates:
             self.plates.remove(plate)
             self.update_displays()
+            self._log(plate, "exited")
         else:
-            raise ValueError("plate not found in car park")
+            raise ValueError("plate not found")
 
     def update_displays(self):
         """Send simple info to all displays."""
@@ -52,3 +52,29 @@ class CarPark:
         }
         for display in self.displays:
             display.update(data)
+
+    def _log(self, plate, action):
+        with open("log.txt", "a") as f:
+            f.write(f"{plate} {action}\n")
+
+    def write_config(self):
+        data = {
+            "location": self.location,
+            "capacity": self.capacity
+        }
+        with open("config.json", "w") as f:
+            import json
+            json.dump(data, f)
+
+    @classmethod
+    def from_config(cls):
+        import json
+        with open("config.json", "r") as f:
+            data = json.load(f)
+
+        return cls(
+            location=data.get("location"),
+            capacity=data.get("capacity")
+        )
+
+
