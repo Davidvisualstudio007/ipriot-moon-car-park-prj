@@ -7,3 +7,8 @@ class Display:
         self.message = message
 
         self.is_on = is_on
+
+    def update(self, data):
+        """Update the current message based on car park data."""
+        bays = data.get("available_bays", "?")
+        self.message = f"Free bays: {bays}"
