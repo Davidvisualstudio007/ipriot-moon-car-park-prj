@@ -23,7 +23,7 @@ class CarPark:
     def available_bays(self):
         """Return how many bays are still free."""
         free = self.capacity - len(self.plates)
-        return free if free >= 0 else 0
+        return free if free >= 0 else 0  # make sures the number never goes below zero
 
     def register(self, component):
         """Attach a display or sensor to this car park."""
@@ -36,20 +36,35 @@ class CarPark:
             self.sensors.append(component)
 
     def add_car(self, plate):
+        """
+        Adds a car to the car park.
+
+        :param plate: licence plate string of the car entering
+        """
         self.plates.append(plate)
         self.update_displays()
         self._log(plate, "entered")
 
     def remove_car(self, plate):
+        """
+        Removes a car to the car park.
+
+        :param plate: licence plate string of the car leaving
+        """
         if plate in self.plates:
             self.plates.remove(plate)
             self.update_displays()
             self._log(plate, "exited")
         else:
-            raise ValueError("plate not found")
+            raise ValueError("plate not found")  # raise error when plate not found
 
     def update_displays(self):
-        """Send simple info to all displays."""
+        """
+        Updates all registered display objects with the latest car park data.
+
+        This method sends the current number of available bays to each display
+        so the information shown to users stays up to date.
+        """
         data = {
             "available_bays": self.available_bays
         }
@@ -57,7 +72,7 @@ class CarPark:
             display.update(data)
 
     def _log(self, plate, action):
-        with open("log.txt", "a") as f:
+        with open("log.txt", "a") as f:  # put/append the entry or exit into the log file
             f.write(f"{plate} {action}\n")
 
     def write_config(self):
@@ -79,5 +94,3 @@ class CarPark:
             location=data.get("location"),
             capacity=data.get("capacity")
         )
-
-
